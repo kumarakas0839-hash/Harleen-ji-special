@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Propose Day 💖</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#ffb6c1,#ff5f6d);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+overflow:hidden;
+}
+
+.card{
+background:#fff;
+padding:25px;
+border-radius:25px;
+box-shadow:0 10px 20px rgba(0,0,0,.25);
+max-width:340px;
+}
+
+.big{font-size:80px;cursor:pointer}
+
+input{
+padding:10px;
+border-radius:12px;
+border:1px solid #aaa;
+font-size:16px;
+text-align:center;
+}
+
+button{
+background:#ff4d6d;
+border:none;
+color:white;
+padding:10px 22px;
+border-radius:20px;
+font-size:16px;
+cursor:pointer;
+}
+
+.glow{
+font-size:28px;
+color:#ff3f6c;
+text-shadow:0 0 10px pink,0 0 20px hotpink;
+animation:pulse 1.4s infinite alternate;
+}
+
+@keyframes pulse{
+to{transform:scale(1.15)}
+}
+
+.spark{
+position:absolute;
+color:pink;
+animation:float 2s linear infinite;
+}
+
+@keyframes float{
+from{transform:translateY(0);opacity:1}
+to{transform:translateY(-80px);opacity:0}
+}
+
+.noBtn{
+position:absolute;
+background:#999;
+}
+
+.fall{
+position:absolute;
+font-size:26px;
+animation:fall 4s linear infinite;
+}
+
+@keyframes fall{
+from{transform:translateY(100vh)}
+to{transform:translateY(-10vh)}
+}
+
+.heart{font-size:90px;cursor:pointer}
+
+.rizz{
+font-size:20px;
+color:#ff2f6d;
+font-weight:bold;
+animation:fade 2s ease;
+}
+
+@keyframes fade{
+from{opacity:0;transform:scale(.8)}
+to{opacity:1;transform:scale(1)}
+}
+</style>
+</head>
+
+<body>
+<div id="app"></div>
+
+<script>
+let step=0;
+const meet=new Date("2026-01-22T22:30:00");
+
+function show(){
+let a=document.getElementById("app");
+
+if(step===0){
+a.innerHTML=`<div class="big" onclick="openGift()">🎁</div>`;
+}
+
+else if(step===1){
+a.innerHTML=`
+<div class="card">
+<p class="glow">Write your name 💖</p>
+<input id="nm" oninput="magic()"><br><br>
+<button onclick="check()">Open</button>
+<p id="err" style="color:red"></p>
+</div>`;
+}
+
+else if(step===2){
+a.innerHTML=`
+<div class="card">
+<h2>🧚 Fairy has arrived!</h2>
+<div id="timer"></div>
+<p>Since 25 Nov 2024</p>
+<button onclick="step=3;show()">Next 💕</button>
+</div>`;
+setInterval(timer,1000);
+}
+
+else if(step===3){
+a.innerHTML=`
+<div style="position:relative;height:220px">
+<h1>🤵🌹</h1>
+<p>Will you accept my proposal Haleen Ji? 💍</p>
+<button onclick="yes()">Yes ❤️</button>
+<button id="no" class="noBtn">No 🙈</button>
+</div>`;
+moveNo();
+}
+
+else if(step===4){
+a.innerHTML=`<div class="heart" onclick="nextStep()">❤️</div><p>Tap heart 💖</p>`;
+flowers();
+}
+
+else if(step===5){
+a.innerHTML=`
+<div class="card">
+<p>Your smile is my happiness 😊</p>
+<p>Your beauty lights my world ✨</p>
+<p>Your eyes are magical 💕</p>
+<p>Your nature is pure 🌸</p>
+<p>Your kindness inspires me 💫</p>
+<p>Your laughter heals me 😍</p>
+<p>Your presence is peace 🕊️</p>
+<p>Your heart is precious ❤️</p>
+<p>You are my blessing 🌹</p>
+<button onclick="step=6;show()">Next 💌</button>
+</div>`;
+}
+
+else if(step===6){
+a.innerHTML=`
+<div class="card">
+<p>🎬 Sita Ramam</p>
+<p>🥟 Momos</p>
+<p> Prayagraj</p>
+<p>🍫 Dairy Milk</p>
+<p>💍 Glass Bangles</p>
+<button onclick="step=7;show()">Continue ❤️</button>
+</div>`;
+}
+
+else{
+a.innerHTML=`
+<div class="card">
+<p>
+तेरी मुस्कान मेरी दुनिया है,<br>
+तेरा साथ मेरी जन्नत है,<br>
+तू पास हो तो सब आसान लगे,<br>
+तू ही मेरी सबसे खूबसूरत किस्मत है 💖
+</p>
+
+<p class="rizz">
+Haleen ji, agar khuda ne perfection ka naam rakha hota —  
+toh uska meaning aap hoti 😌✨
+</p>
+
+<footer>Thank you Haleen Ji 🌸</footer>
+<button onclick="step=0;show()">Close 🌷</button>
+</div>`;
+}
+}
+
+function openGift(){
+step=1;
+show();
+}
+
+function nextStep(){
+step=5;
+show();
+}
+
+function magic(){
+let v=document.getElementById("nm").value.toLowerCase();
+if(v==="haleen"){
+for(let i=0;i<5;i++){
+let s=document.createElement("div");
+s.className="spark";
+s.innerText="💖";
+s.style.left=Math.random()*100+"%";
+s.style.top="60%";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),1500);
+}
+}
+}
+
+function check(){
+let v=document.getElementById("nm").value;
+if(v.toLowerCase()!=="haleen"){
+document.getElementById("err").innerText="Only Haleen Ji can open this 💖";
+}else{step=2;show();}
+}
+
+function timer(){
+let d=new Date()-meet;
+let days=Math.floor(d/86400000);
+let h=Math.floor(d/3600000)%24;
+let m=Math.floor(d/60000)%60;
+document.getElementById("timer").innerText=
+`${days} Days ${h} Hours ${m} Minutes`;
+}
+
+function moveNo(){
+let b=document.getElementById("no");
+setInterval(()=>{
+b.style.left=Math.random()*220+"px";
+b.style.top=Math.random()*120+"px";
+},600);
+}
+
+function yes(){step=4;show();}
+
+function flowers(){
+for(let i=0;i<20;i++){
+let f=document.createElement("div");
+f.className="fall";
+f.innerText="🌸🦋";
+f.style.left=Math.random()*100+"vw";
+f.style.animationDuration=3+Math.random()*3+"s";
+document.body.appendChild(f);
+}
+}
+
+show();
+</script>
+</body>
+</html>
